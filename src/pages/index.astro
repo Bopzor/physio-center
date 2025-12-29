@@ -1,11 +1,49 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import Header from "../components/Header.astro";
+import Hero from "../components/Hero.astro";
+import Team from "../components/Team.astro";
+import Center from "../components/Center.astro";
+import Contact from "../components/Contact.astro";
+import Layout from "../layouts/Layout.astro";
 ---
 
 <Layout>
-	<Welcome />
+  <main>
+    <Header />
+    <Hero />
+    <Team />
+    <Center />
+    <Contact />
+
+    <div
+      class="fixed bottom-0 left-0 right-0 z-50 p-4 bg-white/80 backdrop-blur border-t md:hidden"
+    >
+      <a
+        href="tel:0123456789"
+        class="flex items-center justify-center gap-2 w-full bg-emerald-700 text-white font-bold py-3 rounded-xl shadow-lg hover:bg-emerald-700 active:scale-95 transition-all"
+      >
+        <span class="h-5 w-5">📞</span>
+        Appeler le cabinet (Dispo)
+      </a>
+    </div>
+
+    <footer
+      class="w-full py-6 bg-slate-900 text-slate-400 text-sm text-center mb-16 md:mb-0"
+    >
+      <p>
+        © <span id="year">2025</span> Cabinet NOM DU CAB. Tous droits réservés. <span
+          class="text-xs text-slate-600"
+          >(Made by <a
+            href="https://github.com/Bopzor"
+            target="_blank"
+            class="underline">Bopzor</a
+          > with ❤️)</span
+        >
+      </p>
+    </footer>
+  </main>
+
+  <script is:inline>
+    document.getElementById("year").innerText = new Date().getFullYear();
+  </script>
 </Layout>

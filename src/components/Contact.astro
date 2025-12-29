@@ -1,0 +1,99 @@
+---
+const OPEN_STREET_MAP_URL =
+  "https://www.openstreetmap.org/export/embed.html?" +
+  [
+    "bbox=4.054435193538667%2C45.0338902482123%2C4.058922529220582%2C45.036136355059554",
+    "layer=mapnik",
+    "marker=45.0350140 %2C4.0570153",
+  ].join("&");
+
+const address = "253 rue Emmanuel Mauras 43260 Saint-Julien-Chapteuil";
+---
+
+<section id="infos" class="w-full py-12 md:py-24 bg-white">
+  <div class="container px-4 md:px-6 mx-auto">
+    <div class="grid gap-6 lg:grid-cols-2 lg:gap-12">
+      <div class="space-y-8">
+        <h2 class="text-3xl font-bold">Nous trouver</h2>
+
+        <div class="space-y-6">
+          <div class="flex items-start gap-4">
+            <span class="h-6 w-6 text-emerald-600 mt-1">📍</span>
+            <div role="button" id="adresse" data-address={address}>
+              <h3 class="font-bold">Adresse</h3>
+              <p class="text-slate-600">
+                253 rue Emmanuel Mauras
+                <br />
+                43260 Saint-Julien-Chapteuil
+              </p>
+              <p class="text-xs text-slate-400 mt-1">
+                Pôle Santé et services du Meygal
+              </p>
+            </div>
+
+            <span
+              id="toast"
+              class="text-xs text-emerald-500 font-medium opacity-0 transition-opacity"
+            >
+              Adresse copiée !
+            </span>
+          </div>
+
+          <div class="flex items-start gap-4">
+            <span class="h-6 w-6 text-emerald-600 mt-1">🕒</span>
+            <div>
+              <h3 class="font-bold">Horaires</h3>
+              <p class="text-slate-600">Lundi - Vendredi : 8h00 - 18h00</p>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-4">
+            <span class="h-6 w-6 text-emerald-600 mt-1">📞</span>
+            <div>
+              <h3 class="font-bold">Contact</h3>
+              <a href="tel:0123456789" class="text-slate-600">
+                01 23 45 67 89
+              </a>
+              <p class="text-xs text-slate-400">
+                Prise de rendez-vous par téléphone uniquement.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="h-75 md:h-full w-full bg-slate-100 rounded-2xl overflow-hidden border relative flex items-center justify-center"
+      >
+        <iframe
+          height={344}
+          src={OPEN_STREET_MAP_URL}
+          style={{ width: "100%", border: "0", marginBottom: -3 }}
+          title="map"></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const address = document.getElementById("adresse");
+  const toast = document.getElementById("toast");
+
+  if (address instanceof HTMLElement) {
+    address.addEventListener("click", async () => {
+      try {
+        await navigator.clipboard.writeText(
+          address.getAttribute("data-address")!
+        );
+
+        toast?.classList.remove("opacity-0");
+
+        setTimeout(() => {
+          toast?.classList.add("opacity-0");
+        }, 2000);
+      } catch (err) {
+        console.error("Erreur copie", err);
+      }
+    });
+  }
+</script>
